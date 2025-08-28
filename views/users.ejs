@@ -1,0 +1,23 @@
+<h1>Usuarios registrados</h1>
+<% if (users.length > 0) { %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Correo</th>
+      <th>Fecha</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% users.forEach(u => { %>
+      <tr>
+        <td><%= u.name %></td>
+        <td><%= u.email %></td>
+        <td><%= u.created_at %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<% } else { %>
+<p>No hay usuarios aún.</p>
+<% } %>
