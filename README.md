@@ -42,6 +42,29 @@ project/
 3. El usuario es redirigido a **`/users`**, donde se muestra una tabla con todos los registros almacenados.
 4. El layout (`layout.ejs`) asegura que el header y footer estén en todas las vistas.
 
+## Arquitectura de la aplicación
+
+```mermaid
+flowchart TD
+    A[Navegador / Cliente] -->|Solicitud HTTP| B[Servidor Express]
+
+    B -->|Renderiza vistas EJS| C[Vistas EJS y Layouts]
+    B -->|Rutas| D[Rutas de Usuario]
+
+    D -->|Llaman a| E[Controladores]
+    E -->|Consultan| F[Base de Datos SQLite]
+
+    F -->|Responde datos| E
+    E -->|Envía datos para renderizar| C
+    C -->|Respuesta HTML| A
+```
+- **Navegador / Cliente:** El usuario accede a la aplicación, llena formularios o navega por las páginas.  
+- **Servidor Express:** Punto de entrada; define middlewares, rutas y se encarga de renderizar vistas o responder JSON.  
+- **Vistas:** Archivos `.ejs` que generan HTML dinámico a partir de los datos enviados por los controladores.  
+- **Rutas de Usuario:** Definen los endpoints como `/register` o `/users`, y redirigen la petición al controlador correcto.  
+- **Controladores:** Contienen la lógica de negocio: procesan datos del formulario, validan y consultan la base de datos.  
+- **Base de Datos SQLite:** Guarda la información persistente de los usuarios y responde a las consultas.  
+
 ## Instrucciones para correr el proyecto
 
 ```bash
